@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html class="crew" lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="omar">
+    <meta name="description" content="frontendmentor Challenge">
+    <meta name="keywords" content="space_tourism, omar, yama, challenge">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+    <link rel="preload" as="style" href="./css/style.css" onload="this.onload=null;this.rel='stylesheet'">
+  </head>
+  <body>
+    <header>
+      <div class="logo"><a href="./index.html"><img src="./assets/shared/logo.svg" loading="lazy" alt="Logo"></a></div>
+      <div class="humburger"><img src="./assets/shared/icon-hamburger.svg" loading="lazy" alt=""></div>
+      <ul class="nav-links">
+        <div class="close"><img src="./assets/shared/icon-close.svg" loading="lazy" alt=""></div>
+        <li><a href="./index.html">00 Home</a></li>
+        <li><a href="./destination-moon.html">01 Destination</a></li>
+        <li class="active"><a href="./crew-commander.html">02 Crew</a></li>
+        <li><a href="./technology-vehicle.html">03 Technology</a></li>
+      </ul>
+    </header>
+    <p class="title"><span>02</span>  MEET YOUR CREW</p>
+    <div class="container">
+      <div class="content">
+        <div class="explanation">
+          <div class="role">COMMANDER</div>
+          <div class="name"></div>
+          <div class="bio"></div>
+        </div>
+        <ul class="pagination">
+          <li class="active"><a href="./crew-commander.html"></a></li>
+          <li><a href="./crew-engineer.html"></a></li>
+          <li><a href="./crew-specialist.html"></a></li>
+          <li><a href="./crew-pilot.html"></a></li>
+        </ul>
+      </div>
+      <div class="image"><img loading="lazy"></div>
+    </div>
+    <script>
+       fetch('./data.json')
+      .then(data => data.json())
+      .then(data => {
+         let crew = data.crew[0];
+         let role = document.querySelector('.container .content .role');
+         let name = document.querySelector('.container .content .name');
+         let bio = document.querySelector('.container .content .bio');
+         let img = document.querySelector('.container .image img');
+         role.innerText = crew.role;
+         name.innerText = crew.name;
+         bio.innerText = crew.bio;
+         img.src = crew.images.png;
+      }).finally(() => {
+      let touchstart = 0;
+      let touchend = 0;
+      document.addEventListener('touchstart', function(e) {
+         touchstart = e.changedTouches[0].screenX;
+      });
+      
+      document.addEventListener('touchend', function(e) {
+         if (touchend == touchstart) {
+            return true;
+         }
+      
+         try {
+         touchend = e.changedTouches[0].screenX;
+         // If the touchend position is greater than the touchstart position, it means the user swiped right
+         if (touchend < touchstart) {
+            document.querySelector('.container .pagination .active').nextElementSibling.firstElementChild.click();
+         } else if (touchend > touchstart) {
+            document.querySelector('.container .pagination .active').previousElementSibling.firstElementChild.click();
+         }
+         }
+         catch {
+            return true;
+         }
+      });
+      });
+    </script>
+  </body>
+  <script src="./js/main.js" defer></script>
+</html>

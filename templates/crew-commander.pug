@@ -1,0 +1,66 @@
+extends index
+block vars
+   - let active = 02
+   - let style = 'style'
+   - let page = 'crew'
+
+block member
+   - let member = 0
+
+block content
+   p.title #[span 02] #{' Meet Your Crew'.toUpperCase()}
+   .container
+      .content
+         .explanation
+            .role #{'commander'.toUpperCase()}
+            .name
+            .bio
+         ul.pagination
+            - let crew = ['commander', 'engineer', 'specialist', 'pilot']
+            - for(let mem in crew)
+               - if (mem == member)
+                  li.active: a(href="./crew-" + crew[mem] + ".html")
+               - else
+                  li: a(href="./crew-" + crew[mem] + ".html")
+      .image: img(loading='lazy')
+   script 
+      .
+         fetch('./data.json')
+         .then(data => data.json())
+         .then(data => {
+            let crew = data.crew[#{member}];
+            let role = document.querySelector('.container .content .role');
+            let name = document.querySelector('.container .content .name');
+            let bio = document.querySelector('.container .content .bio');
+            let img = document.querySelector('.container .image img');
+            role.innerText = crew.role;
+            name.innerText = crew.name;
+            bio.innerText = crew.bio;
+            img.src = crew.images.png;
+         }).finally(() => {
+         let touchstart = 0;
+         let touchend = 0;
+         document.addEventListener('touchstart', function(e) {
+            touchstart = e.changedTouches[0].screenX;
+         });
+
+         document.addEventListener('touchend', function(e) {
+            if (touchend == touchstart) {
+               return true;
+            }
+
+            try {
+            touchend = e.changedTouches[0].screenX;
+            // If the touchend position is greater than the touchstart position, it means the user swiped right
+            if (touchend < touchstart) {
+               document.querySelector('.container .pagination .active').nextElementSibling.firstElementChild.click();
+            } else if (touchend > touchstart) {
+               document.querySelector('.container .pagination .active').previousElementSibling.firstElementChild.click();
+            }
+            }
+            catch {
+               return true;
+            }
+         });
+         });
+   

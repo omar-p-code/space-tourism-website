@@ -1,0 +1,18 @@
+@mixin text_preset($preset, $moblie, $tablet) {
+   // desktop
+   font-size: map-get($preset, font-size)/1.1;
+   line-height: map-get($preset, line-height);
+   letter-spacing: map-get($preset, letter-spacing);
+
+   @media (max-width: 998px) {
+      font-size: map-get($tablet, font-size)/1.1;
+      line-height: map-get($tablet, line-height);
+      letter-spacing: map-get($tablet, letter-spacing);
+   }
+
+   @media (max-width: 540px) {
+      font-size: map-get($moblie, font-size)/1.1;
+      line-height: map-get($moblie, line-height);
+      letter-spacing: map-get($moblie, letter-spacing);
+   }
+}

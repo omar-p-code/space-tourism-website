@@ -1,0 +1,62 @@
+extends index
+block vars
+   -
+      let active = 01
+      let style = 'style'
+      let page = 'destination'
+
+block des
+   - let destination = 'moon'
+   - let des = 0
+
+block content
+   p.title #[span 01] #{' pick your destination'.toUpperCase()}
+   .des_container
+      .destination
+         img.destination-img(src="./assets/destination/image-moon.png", loading='lazy', alt="Moon")
+         .destination-cont
+            ul.destinations
+               - if (destination == 'moon')
+                  li.active: a(href="./destination-moon.html") Moon
+               - else
+                  li: a(href="./destination-moon.html") Moon
+               - if (destination == 'mars')
+                  li.active: a(href="./destination-mars.html") Mars
+               - else
+                  li: a(href="./destination-mars.html") Mars
+               - if (destination == 'europa')
+                  li.active: a(href="./destination-europa.html") Europa
+               - else
+                  li: a(href="./destination-europa.html") Europa
+               - if (destination == 'titan')
+                  li.active: a(href="./destination-titan.html") Titan
+               - else
+                  li: a(href="./destination-titan.html") Titan
+            .des_info
+               .name #{'Moon'.toUpperCase()}
+               p.description
+               hr
+               .info
+                  .distance
+                     p.title AVG. Distance
+                     p.text
+                  .travel-time
+                     p.title EST. Travel Time
+                     p.text
+   script
+      .
+         fetch('./data.json')
+         .then(response => response.json())
+         .then(data => {
+            const destination = data.destinations[#{des}]
+            const name = document.querySelector('.name');
+            const img = document.querySelector('.destination-img');
+            const distance = document.querySelector('.distance .text');
+            const travelTime = document.querySelector('.travel-time .text');
+            const description = document.querySelector('.description');
+            distance.innerHTML = destination.distance
+            travelTime.innerHTML = destination.travel
+            description.innerHTML = destination.description
+            name.innerHTML = destination.name
+            img.src = destination.images.png
+         })

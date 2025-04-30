@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html class="destination" lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="omar">
+    <meta name="description" content="frontendmentor Challenge">
+    <meta name="keywords" content="space_tourism, omar, yama, challenge">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+    <link rel="preload" as="style" href="./css/style.css" onload="this.onload=null;this.rel='stylesheet'">
+  </head>
+  <body>
+    <header>
+      <div class="logo"><a href="./index.html"><img src="./assets/shared/logo.svg" loading="lazy" alt="Logo"></a></div>
+      <div class="humburger"><img src="./assets/shared/icon-hamburger.svg" loading="lazy" alt=""></div>
+      <ul class="nav-links">
+        <div class="close"><img src="./assets/shared/icon-close.svg" loading="lazy" alt=""></div>
+        <li><a href="./index.html">00 Home</a></li>
+        <li class="active"><a href="./destination-moon.html">01 Destination</a></li>
+        <li><a href="./crew-commander.html">02 Crew</a></li>
+        <li><a href="./technology-vehicle.html">03 Technology</a></li>
+      </ul>
+    </header>
+    <p class="title"><span>01</span>  PICK YOUR DESTINATION</p>
+    <div class="des_container">
+      <div class="destination"><img class="destination-img" src="./assets/destination/image-moon.png" loading="lazy" alt="Moon">
+        <div class="destination-cont">
+          <ul class="destinations">
+            <li class="active"><a href="./destination-moon.html">Moon</a></li>
+            <li><a href="./destination-mars.html">Mars</a></li>
+            <li><a href="./destination-europa.html">Europa</a></li>
+            <li><a href="./destination-titan.html">Titan</a></li>
+          </ul>
+          <div class="des_info">
+            <div class="name">MOON</div>
+            <p class="description"></p>
+            <hr>
+            <div class="info">
+              <div class="distance">
+                <p class="title">AVG. Distance</p>
+                <p class="text"></p>
+              </div>
+              <div class="travel-time">
+                <p class="title">EST. Travel Time</p>
+                <p class="text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      fetch('./data.json')
+      .then(response => response.json())
+      .then(data => {
+         const destination = data.destinations[0]
+         const name = document.querySelector('.name');
+         const img = document.querySelector('.destination-img');
+         const distance = document.querySelector('.distance .text');
+         const travelTime = document.querySelector('.travel-time .text');
+         const description = document.querySelector('.description');
+         distance.innerHTML = destination.distance
+         travelTime.innerHTML = destination.travel
+         description.innerHTML = destination.description
+         name.innerHTML = destination.name
+         img.src = destination.images.png
+      })
+    </script>
+  </body>
+  <script src="./js/main.js" defer></script>
+</html>

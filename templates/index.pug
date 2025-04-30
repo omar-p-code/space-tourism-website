@@ -1,0 +1,46 @@
+block vars
+   - let active = 00;
+   - let style = 'style'
+   - let page = 'index'
+
+block des
+block member
+block tech
+doctype html
+html(lang="en", class=page)
+   head
+      include includes/head.pug
+   body
+      header
+         div.logo: a(href='./index.html'): img(src="./assets/shared/logo.svg", loading='lazy', alt="Logo")
+         div.humburger: img(src="./assets/shared/icon-hamburger.svg", loading='lazy', alt="")
+         ul.nav-links
+            div.close: img(src="./assets/shared/icon-close.svg", loading='lazy', alt="")
+            - if (active == 00)
+               li.active: a(href="./index.html") 00 Home
+            - else 
+               li: a(href="./index.html") 00 Home
+            
+            - if (active == 01)
+               li.active: a(href="./destination-moon.html") 01 Destination
+            - else 
+               li: a(href="./destination-moon.html") 01 Destination
+            
+            - if (active == 02)
+               li.active: a(href="./crew-commander.html") 02 Crew
+            - else 
+               li: a(href="./crew-commander.html") 02 Crew
+
+            - if (active == 03)
+               li.active: a(href="./technology-vehicle.html") 03 Technology
+            - else 
+               li: a(href="./technology-vehicle.html") 03 Technology
+      block content
+         section
+            div.content
+               div.get-attention So, you want to travel to
+               div.space Space
+               div.hero Let’s face it; if you want to go to space, you might as well genuinely go to outer space and not hover kind of on the edge of it. Well sit back, and relax because we’ll give you a truly out of this world experience!/div
+
+            div.explore: a.explore-text(href="./destination-moon.html") Explore
+   script(src="./js/main.js", defer)

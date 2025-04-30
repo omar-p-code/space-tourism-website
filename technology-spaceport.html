@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html class="technology" lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="omar">
+    <meta name="description" content="frontendmentor Challenge">
+    <meta name="keywords" content="space_tourism, omar, yama, challenge">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+    <link rel="preload" as="style" href="./css/style.css" onload="this.onload=null;this.rel='stylesheet'">
+  </head>
+  <body>
+    <header>
+      <div class="logo"><a href="./index.html"><img src="./assets/shared/logo.svg" loading="lazy" alt="Logo"></a></div>
+      <div class="humburger"><img src="./assets/shared/icon-hamburger.svg" loading="lazy" alt=""></div>
+      <ul class="nav-links">
+        <div class="close"><img src="./assets/shared/icon-close.svg" loading="lazy" alt=""></div>
+        <li><a href="./index.html">00 Home</a></li>
+        <li><a href="./destination-moon.html">01 Destination</a></li>
+        <li><a href="./crew-commander.html">02 Crew</a></li>
+        <li class="active"><a href="./technology-vehicle.html">03 Technology</a></li>
+      </ul>
+    </header>
+    <p class="title"><span>03</span>  SPACE LAUNCH 101</p>
+    <div class="container">
+      <div class="content">
+        <ul class="pagination">
+          <li><a href="./technology-vehicle.html">1</a></li>
+          <li class="active"><a href="./technology-spaceport.html">2</a></li>
+          <li><a href="./technology-capsule.html">3</a></li>
+        </ul>
+        <div class="explanation">
+          <div class="commander">THE TERMINOLOGY...</div>
+          <div class="name"></div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="image"><img loading="lazy" alt="technology image"></div>
+    </div>
+    <script>
+      let name = document.querySelector('.container .content .name');
+      let description = document.querySelector('.container .content .description');
+      let img = document.querySelector('.container .image img');
+      fetch('./data.json')
+      .then(data => data.json())
+      .then(data => {
+         let tech = data.technology[1];
+         name.innerText = tech.name;
+         description.innerText = tech.description;
+         console.log(document.body.offsetWidth);
+         img.dataset.portrait = tech.images.portrait;
+         img.dataset.landscape = tech.images.landscape;
+         if (document.body.offsetWidth > 978) {
+            img.src = tech.images.portrait;
+         } else {
+            img.src = tech.images.landscape;
+         }
+      });
+      document.body.onresize = function(e) {
+         if (document.body.offsetWidth > 978) {
+            img.src = img.dataset.portrait;
+         } else {
+            img.src = img.dataset.landscape;
+         }
+      }
+    </script>
+  </body>
+  <script src="./js/main.js" defer></script>
+</html>

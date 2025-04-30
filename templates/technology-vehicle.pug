@@ -1,0 +1,52 @@
+extends index
+block vars
+   - let active = 03
+   - let style = 'style'
+   - let page = 'technology'
+
+block tech
+   - let tech = 0
+
+block content
+   p.title #[span 03] #{' space Launch 101'.toUpperCase()}
+   .container
+      .content
+         ul.pagination
+            - let technologies = ['vehicle', 'spaceport', 'capsule']
+            - for(let techno in technologies)
+               - if (techno == tech)
+                  li.active: a(href="./technology-" + technologies[techno] + ".html") #{techno - -1}
+               - else
+                  li: a(href="./technology-" + technologies[techno] + ".html") #{techno- -1}
+         .explanation
+            .commander #{'the terminology...'.toUpperCase()}
+            .name
+            .description
+      .image: img(loading='lazy', alt="technology image")
+   script
+      .
+         let name = document.querySelector('.container .content .name');
+         let description = document.querySelector('.container .content .description');
+         let img = document.querySelector('.container .image img');
+         fetch('./data.json')
+         .then(data => data.json())
+         .then(data => {
+            let tech = data.technology[#{tech}];
+            name.innerText = tech.name;
+            description.innerText = tech.description;
+            console.log(document.body.offsetWidth);
+            img.dataset.portrait = tech.images.portrait;
+            img.dataset.landscape = tech.images.landscape;
+            if (document.body.offsetWidth > 978) {
+               img.src = tech.images.portrait;
+            } else {
+               img.src = tech.images.landscape;
+            }
+         });
+         document.body.onresize = function(e) {
+            if (document.body.offsetWidth > 978) {
+               img.src = img.dataset.portrait;
+            } else {
+               img.src = img.dataset.landscape;
+            }
+         }
