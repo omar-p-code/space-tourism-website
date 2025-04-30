@@ -39,7 +39,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [solution URL](https://your-solution-url.com)
+- Solution URL: [solution URL](https://www.frontendmentor.io/solutions/space-tourism-website-NGiCZS1nze)
 - Live Site URL: [Live Site](https://omar-p-code.github.io/space-tourism-website/public/index.html)
 
 ### Built with
